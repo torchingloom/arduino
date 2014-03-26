@@ -8,8 +8,6 @@ Servo leftFootServo;
 Servo leftHipServo;
 Servo rightFootServo;
 Servo rightHipServo;
-// Servo leftArmServo;
-// Servo rightArmServo;
 
 const int offset = 25;//how many degrees we want to move the servos
 const int offsetarm = 42;
@@ -42,39 +40,24 @@ const int rightHipC = 128;
 const int rightHipL = rightHipC+offset-7;
 const int rightHipR = rightHipC-offset;
 
-// Left arm ervo
-//const int leftArmC = 124;
-//const int leftArmF = leftArmC+offsetarm;
-//const int leftArmB = leftArmC-offsetarm;
-
-//Right arm servo
-//const int rightArmC = 136;
-//const int rightArmF = rightArmC+offsetarm;
-//const int rightArmB = rightArmC-offsetarm;
 
 // Servo positions we want the servo to move to (in small steps)
 float leftFootPos;
 float leftHipPos;
 float rightFootPos;
 float rightHipPos;
-//float leftArmPos;
-//float rightArmPos;
 
 // Servo postions written to the servos
 float leftFootPosInt = leftFootC;
 float leftHipPosInt = leftHipC;
 float rightFootPosInt = rightFootC;
 float rightHipPosInt = rightHipC;
-//float leftArmPosInt = leftArmC;
-//float rightArmPosInt = rightArmC;
 
 // Calculated values for moving servos in small steps (position we want to move to - current servo position / steps)
 float leftFootStep;
 float leftHipStep;
 float rightFootStep;
 float rightHipStep;
-// float leftArmStep;
-// float rightArmStep;
 
 const int steps = 10  ;  // divide every servo move in 20 steps
 byte speed = 40;  // time between steps
@@ -85,15 +68,8 @@ unsigned long timer;
 byte direction;
 byte legInStep = 1;
 
-//const int Trig = 7;
-//const int Echo = 8;
-//float time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//float distance_sm=time_us/58; // Пересчитываем в сантиметры
-
 void setup()
 {
-//  pinMode(Trig, OUTPUT);
-//  pinMode(Echo, INPUT);
   leftFootServo.write(leftFootC);
   leftFootServo.attach(11);
   leftHipServo.write(leftHipC);
@@ -102,10 +78,6 @@ void setup()
   rightFootServo.attach(9);
   rightHipServo.write(rightHipC);
   rightHipServo.attach(6);
-//  leftArmServo.write(leftArmC);
-//  leftArmServo.attach(5);
-//  rightArmServo.write(rightArmC);
-//  rightArmServo.attach(6);
   delay(1000);
 }
 
@@ -140,16 +112,12 @@ void walk()
       leftHipStep = (leftHipPos - leftHipPosInt) / steps;
       rightFootStep = (rightFootPos - rightFootPosInt) / steps;
       rightHipStep = (rightHipPos - rightHipPosInt) / steps;
-//      leftArmStep = (leftArmPos - leftArmPosInt) / steps;
-//      rightArmStep = (rightArmPos - rightArmPosInt) / steps;
     }
 
     leftFootPosInt = leftFootPosInt + leftFootStep;
     leftHipPosInt = leftHipPosInt + leftHipStep;
     rightFootPosInt = rightFootPosInt + rightFootStep;
     rightHipPosInt = rightHipPosInt + rightHipStep;
-//    leftArmPosInt = leftArmPosInt + leftArmStep;
-//    rightArmPosInt = leftArmPosInt + leftArmStep;
   }
 
   if (SuperTurboMillis >= SuperTurboTimer){
@@ -166,8 +134,6 @@ void walk()
     leftHipPos = leftHipC;
     rightFootPos = rightFootC;
     rightHipPos = rightHipC;
-//    leftArmPos = leftArmC;
-//    rightArmPos = rightArmC;
   }
 
   if (direction == 1)     // forward walking gait
@@ -178,9 +144,6 @@ void walk()
       
       leftFootPos = leftFootU;
       rightFootPos = rightFootD;
-//      leftArmPos = leftArmF;
-//      rightArmPos = rightArmB;
-      
 }
 
 
@@ -195,10 +158,7 @@ void walk()
     {
       
       leftFootPos = leftFootC;
-      rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-      
+      rightFootPos = rightFootC;      
     }
 
 
@@ -207,10 +167,6 @@ void walk()
       
       leftFootPos = leftFootD;
       rightFootPos = rightFootU;
-//      leftArmPos = leftArmB;
-//      rightArmPos = rightArmF;
-      
-      
     }
 
 
@@ -226,11 +182,7 @@ void walk()
       
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-  //    leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-      
-      
-  }
+    }
   }
   if (direction == 2)     // backward walking gait
   {
@@ -238,14 +190,6 @@ void walk()
     {
       leftFootPos = leftFootU;
       rightFootPos = rightFootD;
- //     leftArmPos = leftArmF;
-//      rightArmPos = rightArmB;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
     if (SuperTurboStep == 2)
@@ -258,28 +202,12 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
     if (SuperTurboStep == 4)
     {
       leftFootPos = leftFootD;
       rightFootPos = rightFootU;
-//      leftArmPos = leftArmB;
-//      rightArmPos = rightArmF;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
     if (SuperTurboStep == 5)
@@ -292,15 +220,6 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
-
     }
   }
 
@@ -310,15 +229,8 @@ void walk()
     {
       leftFootPos = leftFootU;
       rightFootPos = rightFootD;
-//      leftArmPos = leftArmF;
-//      rightArmPos = rightArmB;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
+
     if (SuperTurboStep == 2)
     {
       leftHipPos = leftHipL+15;
@@ -328,27 +240,12 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
+
     if (SuperTurboStep == 4)
     {
       leftFootPos = leftFootD;
       rightFootPos = rightFootU;
-//      leftArmPos = leftArmB;
-//      rightArmPos = rightArmF;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
     if (SuperTurboStep == 5)
@@ -360,14 +257,6 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
   }
 
@@ -377,14 +266,6 @@ void walk()
     {
       leftFootPos = leftFootU;
       rightFootPos = rightFootD;
-//      leftArmPos = leftArmF;
-//      rightArmPos = rightArmB;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
     if (SuperTurboStep == 2)
     {
@@ -395,27 +276,11 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
     if (SuperTurboStep == 4)
     {
       leftFootPos = leftFootD;
       rightFootPos = rightFootU;
-//      leftArmPos = leftArmB;
-//      rightArmPos = rightArmF;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
     if (SuperTurboStep == 5)
@@ -427,14 +292,6 @@ void walk()
     {
       leftFootPos = leftFootC;
       rightFootPos = rightFootC;
-//      leftArmPos = leftArmC;
-//      rightArmPos = rightArmC;
-//      digitalWrite(Trig, HIGH); // Подаем сигнал на выход микроконтроллера
-//delayMicroseconds(10); // Удерживаем 10 микросекунд
-//digitalWrite(Trig, LOW); // Затем убираем
-//time_us=pulseIn(Echo, HIGH); // Замеряем длину импульса
-//distance_sm=time_us/58; // Пересчитываем в сантиметры
-
     }
 
   }
@@ -442,8 +299,6 @@ void walk()
   leftHipServo.write(leftHipPosInt);
   rightFootServo.write(rightFootPosInt);
   rightHipServo.write(rightHipPosInt);
-//  leftArmServo.write(leftArmPosInt);
-//  rightArmServo.write(rightArmPosInt);
 }
 
 
