@@ -3,6 +3,10 @@
 // Basic walking gait code
 
 #include <Servo.h>
+
+int incoming = 0;
+
+
 // 6 servos
 Servo leftFootServo;
 Servo leftHipServo;
@@ -11,7 +15,9 @@ Servo rightHipServo;
 
 const int offset = 25;//how many degrees we want to move the servos
 const int offsetarm = 42;
-/* CENTRE POSITION view on face and top!!!
+
+/* 
+CENTRE POSITION view on face and top!!!
 right edge UP
 leftFoot  VALUE down (-)
 rightFoot  VALUE down (-)
@@ -19,6 +25,7 @@ clockwise HIP
 leftHip VALUE up (+)
 rightHip  VALUE up (+)
 */
+
 // Servo positions
 // Left foot servo
 const int leftFootC = 128;  // centered
@@ -70,6 +77,7 @@ byte legInStep = 1;
 
 void setup()
 {
+  Serial.begin(9600);
   leftFootServo.write(leftFootC);
   leftFootServo.attach(11);
   leftHipServo.write(leftHipC);
@@ -88,8 +96,32 @@ void loop()
   // direction = 2; // backward
   // direction = 3; // left
   // direction = 4; // right
-  direction = 1;
-  walk();
+//  direction = 1;
+
+  incoming = Serial.read();
+  if (incoming > 0)
+  {
+    switch (incoming)
+    {
+      case 49:
+        direction = 1;
+        break;
+      case 50:
+        direction = 2;
+        break;
+      case 51:
+        direction = 3;
+        break;
+      case 52:
+        direction = 4;
+        break;
+      default:
+        direction = 0;
+        break;
+    }  
+  }
+  Serial.println(direction);  
+//  walk();
 }
 
 // This function makes Bob walk <img class="wp-smiley" alt=":)" src="http://www.bajdi.com/wp-includes/images/smilies/icon_smile.gif"> 
@@ -144,7 +176,7 @@ void walk()
       
       leftFootPos = leftFootU;
       rightFootPos = rightFootD;
-}
+    }
 
 
     if (SuperTurboStep == 2)
@@ -184,6 +216,7 @@ void walk()
       rightFootPos = rightFootC;
     }
   }
+  
   if (direction == 2)     // backward walking gait
   {
     if (SuperTurboStep == 1)
@@ -300,5 +333,3 @@ void walk()
   rightFootServo.write(rightFootPosInt);
   rightHipServo.write(rightHipPosInt);
 }
-
-
