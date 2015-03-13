@@ -21,12 +21,14 @@ void Light::setup()
 void Light::on()
 {
   digitalWrite(pin, LOW);
+Serial.println("light on");
   stateSet(ON);
 }
 
 void Light::off()
 {
   digitalWrite(pin, HIGH);
+Serial.println("light off");
   stateSet(OFF);
 }
 
