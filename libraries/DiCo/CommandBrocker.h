@@ -38,4 +38,22 @@ public:
   void dispatch();
 };
 
+#define RPC_BEGIN \
+class MyProxy:\
+public ClientProxy\
+{\
+public:\
+  MyProxy():ClientProxy(){}\
+  ~MyProxy(){};\
+  Command::Param dispatch(Command* c)\
+  {\
+    String action(c->nameGet());\
+
+#define RPC_END    return result;\
+  }\
+} \
+proxy;
+
+#define RPC_COMMAND(name, type, func) if ( action == name ) ((type*)(c->dev()))->func();
+
 #endif

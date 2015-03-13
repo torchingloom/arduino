@@ -1,15 +1,11 @@
 #define DEBUG
 
-#include "DiCo.h"
+#include "Sketch.h"
 #include "TrafficLightControlled.h"
-#include "TrafficLightUncontrolled.h"
-#include "AR.h"
 
 Sketch s;
 TrafficLightControlled t1;
-TrafficLightUncontrolled t2;
-Light l;
-//AR ar;
+
 
 void setup()
 {
@@ -25,9 +21,6 @@ void setup()
   //t2 = TrafficLightUncontrolled(10, 2000);
   //s.deviceAdd(&t2);
   // фонарик на 10 ноге будет мигать с интералом .5 сек.
-  l = Light();
-  l.blink(500);
-  s.deviceAdd(&l);
   s.setup();
 }
 
