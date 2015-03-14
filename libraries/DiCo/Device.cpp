@@ -18,10 +18,23 @@ int Device::stateGet()
 
 int Device::stateSet(int _state)
 {
-  int old_state = state;
+  prev_state = state;
   state = _state;
-  onStateChange(state, old_state);
-  return old_state;
+  onStateChange(state);
+  return prev_state;
+}
+
+int Device::modeGet()
+{
+  return mode;
+}
+
+int Device::modeSet(int _mode)
+{
+  prev_mode = mode;
+  mode = _mode;
+  onModeChange(mode);
+  return prev_mode;
 }
 
 void Device::wait(unsigned long mls)
@@ -34,7 +47,11 @@ bool Device::waiting()
   return time > millis();
 }
 
-void Device::onStateChange(int new_state, int old_state)
+void Device::onStateChange(int _state)
+{
+}
+
+void Device::onModeChange(int _mode)
 {
 }
 

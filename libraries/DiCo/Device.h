@@ -5,17 +5,23 @@ class Device
 {
 private:
   unsigned long time;
+  int prev_state;
   int state;
+  int prev_mode;
+  int mode;
 public:
   Device();
   virtual void setup();
-  void static debug(const char* mess);
+  void static debug(const char*);
   virtual void tick();
-  void wait(unsigned long mls);
+  void wait(unsigned long);
   bool waiting();
   int stateGet();
-  int stateSet(int s);
-  virtual void onStateChange(int new_state, int old_state);
+  int stateSet(int);
+  int modeGet();
+  int modeSet(int);
+  virtual void onStateChange(int);
+  virtual void onModeChange(int);
 };
 
 #endif
