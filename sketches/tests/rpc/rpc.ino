@@ -1,28 +1,33 @@
 #include "Light.h"
-#include "CommandBrocker.h"
+#include "RequestBrocker.h"
+#include "Sketch.h"
 
+RequestBrocker brocker;
 Light l(13);
-CommandT <Light*> l_on ("light_on", &l);
-CommandT <Light*> l_off = CommandT <Light*> ("light_off", &l);
-CommandBrocker brocker(2);
+RequestT <Light*> l_on("on", &l);
+RequestT <Light*> l_off("off", &l);
+RequestT <Light*> l_blink("blink", &l, 1);
+Sketch sk;
 
-class MyProxy:
-public ClientProxy
+
+class MyDispatcher:
+public Dispatcher
 {
 public:
-  MyProxy():ClientProxy(){}
-  ~MyProxy(){};
-  Command::Param dispatch(Command* c)
+  MyDispatcher():Dispatcher(){}
+  ~MyDispatcher(){};
+  Request::Param dispatch(Request* c)
   {
     String action(c->nameGet());
-    if ( action == "light_on" ) ((Light*)(c->dev()))->on();
-    if ( action == "light_off" ) ((Light*)(c->dev()))->off();
-    //if ( action == "bar" ) ret = c->dev()->bar((int)(c->paramGet(0)));
+    if ( action == "on" ) ((Light*)(c->dev()))->on();
+    if ( action == "off" ) ((Light*)(c->dev()))->off();
+    //if ( action == "blink" ) ((Light*)(c->dev()))->blinkStart((int)(*c->paramGet(0)));
+    if ( action == "blink" ) ((Light*)(c->dev()))->blinkStart((int)(*c->paramGet(0)));
 
    return result;
   }
 } 
-proxy;
+dispatcher;
 
 void serialEvent()
 {
@@ -32,19 +37,23 @@ void serialEvent()
 void setup()
 {
   Serial.begin(9600);
+  //l.setup();
+  
+  brocker.RequestAdd(&l_on);
+  brocker.RequestAdd(&l_off);
+  brocker.RequestAdd(&l_blink);
+  brocker.dispatcherAttach(&dispatcher);
+
+  //sk.deviceAdd(&l);
+  //sk.setup();
   l.setup();  
-
-  brocker.commandAdd(&l_on);
-  brocker.commandAdd(&l_off);
-
-  brocker.proxyAttach(&proxy);
-  brocker.transportAttach(&Serial);
-
+  
 }
 
 
 void loop()
 {
+   l.tick();
 }
 
 
