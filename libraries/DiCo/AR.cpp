@@ -14,20 +14,20 @@ AR::AR()
 void AR::setup()
 {
 	interval = 1000;
-	Serial.print("ssss: ");
-	Serial.println(interval);
-	Serial.println("");
-	Serial.println("");
+//	Serial.print("ssss: ");
+//	Serial.println(interval);
+//	Serial.println("");
+//	Serial.println("");
 }
 
 void AR::tick()
 {
 	if (waiting()) return;
 	val = analogRead(pin);
-	Serial.println(val);
-	Serial.print("1: ");
-	Serial.println(interval);
-	Serial.println("");
+//	Serial.println(val);
+//	Serial.print("1: ");
+//	Serial.println(interval);
+//	Serial.println("");
 	wait(interval);
 }
 

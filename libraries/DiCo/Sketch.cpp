@@ -1,6 +1,6 @@
 #include "Sketch.h"
 
-Sketch::Sketch():device_count(0){}
+Sketch::Sketch():device_count(SKETCH_MAX_DEVICES){}
 
 int Sketch::deviceAdd(Device* d)
 {

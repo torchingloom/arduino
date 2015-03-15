@@ -21,8 +21,10 @@ void setup()
   
   s.add("first", "hello");
   s.add("second", "world");
+  s.add("third", "extra");
   Serial.println(*s["first"]);
   Serial.println(*s["second"]);
+  Serial.println(*s["third"]);
 
 }
 

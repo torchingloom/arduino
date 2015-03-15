@@ -1,4 +1,4 @@
-#ifndef ServoM_H
+#ifndef ServoM_h
 #define ServoM_h
 
 #include <Device.h>
