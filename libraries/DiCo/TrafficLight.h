@@ -10,8 +10,8 @@ public Device
 {
 private:
   int work_delay;
-	int analog_pin;
-	AR roller;
+  int analog_pin;
+  AR roller;
 
 public:
   TrafficLight();

@@ -11,7 +11,14 @@ void RailSwitch::setup()
 {
   ServoM::setup();
   rotate(angle);
-  stateSet(INITIAL);
+  if (INITIAL)
+  {
+    stateSet(INITIAL);
+  }
+  else
+  {
+    stateSet(angle);
+  }
   delay(100);
 }
 

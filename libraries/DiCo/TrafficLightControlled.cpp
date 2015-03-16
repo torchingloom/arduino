@@ -12,8 +12,7 @@ TrafficLightControlled::TrafficLightControlled()
 }
 
 void TrafficLightControlled::setup()
-{
-  red.setup();
+{ red.setup();
   yellow.setup();
   green.setup();
   TrafficLight::setup();
@@ -23,33 +22,34 @@ void TrafficLightControlled::swtch()
 {
   if (waiting()) return;
 
+
   switch (stateGet())
   {
-  case OFF:
-  case YELLOW:
-    yellow.off();
-    red.on();
-    stateSet(RED);
-    wait(delayGet());
-    break;
-  case RED:
-    red.off();
-    green.on();
-    stateSet(GREEN);
-    wait(delayGet());
-    break;
-  case GREEN:
-    green.off();
-    green.blink(600);
-    stateSet(GREEN_BLINK);
-    wait(4610);
-    break;
-  case GREEN_BLINK:
-    green.off();
-    yellow.on();
-    stateSet(YELLOW);
-    wait(1000);
-    break;
+    case OFF:
+    case YELLOW:
+      yellow.off();
+      red.on();
+      stateSet(RED);
+      wait(delayGet());
+      break;
+    case RED:
+      red.off();
+      green.on();
+      stateSet(GREEN);
+      wait(delayGet());
+      break;
+    case GREEN:
+      green.off();
+      green.blink(600);
+      stateSet(GREEN_BLINK);
+      wait(4610);
+      break;
+    case GREEN_BLINK:
+      green.off();
+      yellow.on();
+      stateSet(YELLOW);
+      wait(1000);
+      break;
   }
 }
 
