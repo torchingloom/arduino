@@ -22,7 +22,7 @@ public:
   void up();
   void down();
   void tick();
-  void triggerAdd(Trigger* t);
+  int triggerAdd(Trigger* t);
 };
 
 #endif;

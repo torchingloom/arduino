@@ -39,9 +39,10 @@ void Switcher::tick()
   }
 }
 
-void Switcher::triggerAdd(Trigger* t)
+int Switcher::triggerAdd(Trigger* t)
 {
    //triggers.add(t);
    triggers[cnt] = t;
    cnt++;
+   return cnt;
 }
